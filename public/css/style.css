@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0%;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header,
+footer {
+    background-color: rgba(4, 8, 40, 0.594);
+    color: white;
+    text-align: center;
+    padding: .6em;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+}
+
+.data-container {
+    border: 2px solid rgb(0, 0, 0);
+    background-color: rgba(128, 128, 128, 0.145);
+    border-radius: 0.3em;
+    padding: 1em;
+    position: relative;
+}
+
+a .add-button {
+    text-decoration: none;
+    font-size: 20px;
+    border: 2px solid #000;
+    color: #fff;
+    background-color: #2870a7;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: -25px;
+    left: -20px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    &:hover {
+        background-color: #7da3c1;
+    }
+}
+div.record {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .2rem 0;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    gap: .4rem;
+    
+    
+}
+
+.buttons button {
+    padding: 7px;
+    border: none;
+    cursor: pointer;
+    background-color: #000;
+    color: #fff;
+    border-bottom: none;
+    border-radius: 10px;
+}
+
