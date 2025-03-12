@@ -5,6 +5,8 @@ require_once '../app/controllers/rolController.php';
 require_once '../app/controllers/actividadController.php'; 
 require_once '../app/controllers/centroFormacionController.php';
 require_once '../app/controllers/programaFormacionController.php';
+require_once '../app/controllers/loginController.php';
+
 
 $url = $_SERVER['REQUEST_URI']; //Lo que se ingresa en la URL
 $routes = include_once '../app/config/routes.php';

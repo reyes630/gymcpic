@@ -12,6 +12,12 @@ require_once MAIN_APP_ROUTE . '../models/CentroFormacionModel.php';
 
 class ProgramaFormacionController extends BaseController
 {
+
+    public function __construct()
+    {
+        #Se define la plantilla para este controlador 
+        $this->layout = "admin_layout";
+    }
     public function index()
     {
         echo '<br>CONTROLLER> ProgramaFormacionController';
@@ -25,7 +31,11 @@ class ProgramaFormacionController extends BaseController
         $programaFormacionObj = new ProgramaFormacionModel();
         $programaFormacion = $programaFormacionObj->getAll();
         // Llamamos a la vista
-        $this->render('programaFormacion/viewProgramaFormacion.php', ["programaFormacion" => $programaFormacion]);
+        $data = [
+            "title" => "Programa Formación",
+            "programas" => $programaFormacion
+        ];
+        $this->render('programaFormacion/viewProgramaFormacion.php', $data);
     }
 
     public function newProgramaFormacion()

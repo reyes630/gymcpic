@@ -28,7 +28,7 @@
                         <div class='buttons'>
                             <a href='/actividad/view/$value->id'> <button>Consultar</button> </a> 
                             <a href='/actividad/edit/$value->id'> <button>Editar</button> </a> 
-                            <button>Eliminar</button>
+                            <a href='/actividad/delete/$value->id'> <button>Eliminar</button> </a>
                         </div>
                     </div>";
                 }
