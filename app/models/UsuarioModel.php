@@ -117,7 +117,7 @@ class UsuarioModel extends BaseModel
             return false;
         }
     }
-    public function validarLogin($email, $password){
+    public function validarLogin($email, $password){ //Contraseña que llega del formulario
         $sql = "SELECT * FROM $this->table WHERE email=:email";
         $statement = $this->dbConnection->prepare($sql);
         $statement->bindParam(':email', $email);
@@ -128,7 +128,7 @@ class UsuarioModel extends BaseModel
         }
         if (count($resultSet)> 0 ) {
             $hash = $resultSet[0]->password;
-            if (password_verify($password, $hash)) {
+            if (password_verify($password, $hash)) { //hash guardado en el BD
                 //La contraseña ingresada es correcta
                 $_SESSION['nombre'] = $resultSet[0]->nombre;
                 $_SESSION['documento'] = $resultSet[0]->documento;

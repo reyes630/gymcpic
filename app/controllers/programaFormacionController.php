@@ -17,6 +17,8 @@ class ProgramaFormacionController extends BaseController
     {
         #Se define la plantilla para este controlador 
         $this->layout = "admin_layout";
+        
+        parent::__construct();
     }
     public function index()
     {
@@ -27,6 +29,17 @@ class ProgramaFormacionController extends BaseController
 
     public function view()
     {
+
+        //Validacion de sesion de usuarios
+        if (isset($_SESSION['rol'])) {
+            header('Location: /login/init');
+        }else{
+            if (in_array($_SESSION['rol'],[1,2])) {//admin, triner
+                header('Location: /login/init');
+            }
+        }
+
+
         // Llamamos al modelo de ProgramaFormacion
         $programaFormacionObj = new ProgramaFormacionModel();
         $programaFormacion = $programaFormacionObj->getAll();
@@ -42,8 +55,12 @@ class ProgramaFormacionController extends BaseController
     {   
         $centroFormacionObj = new CentroFormacionModel();
         $centros = $centroFormacionObj->getAll(); 
+        $data =  [
+            "centrosFormacion"=>$centros,
+            "title" => "Nuevo Programa"
+        ];
 
-        $this->render('programaFormacion/newProgramaFormacion.php', ["centrosFormacion"=>$centros]);
+        $this->render('programaFormacion/newProgramaFormacion.php',$data);
     }
 
     public function createProgramaFormacion()
@@ -66,6 +83,7 @@ class ProgramaFormacionController extends BaseController
         $programaInfo = $programaFormacionObj->getProgramaFormacion($id);
         $data = [
             "programa" => $programaInfo,
+            "title" => "Programa Formación #".$id,
         ];
         $this->render('programaFormacion/viewOneProgramaFormacion.php', $data);
     }
@@ -80,6 +98,8 @@ class ProgramaFormacionController extends BaseController
         $data = [
             "programa" => $programaInfo,
             "centrosFormacion" => $centrosFormacion,  
+            "title" => "Editar Programa Formación",
+            
         ];
         $this->render('programaFormacion/editProgramaFormacion.php', $data);
     }

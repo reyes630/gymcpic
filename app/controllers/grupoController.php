@@ -11,6 +11,13 @@ require_once MAIN_APP_ROUTE . '../models/ProgramaFormacionModel.php';
 
 class GrupoController extends BaseController
 {
+    public function __construct()
+    {
+        #Se define la plantilla para este controlador 
+        $this->layout = "admin_layout";
+        
+        parent::__construct();
+    }
     public function view()
     {
         $grupoObj = new GrupoModel();

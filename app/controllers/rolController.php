@@ -9,6 +9,13 @@ require_once MAIN_APP_ROUTE . '../models/RolModel.php';
 
 class RolController extends BaseController
 {
+    public function __construct()
+    {
+        #Se define la plantilla para este controlador 
+        $this->layout = "admin_layout";
+        
+        parent::__construct();
+    }
     public function index()
     {
         echo '<br>CONTROLLER> RolController';
@@ -23,11 +30,14 @@ class RolController extends BaseController
         $rolObj = new RolModel();
         $roles = $rolObj->getAll();
         //Llamamos a la vista
-        $data = ["roles" => $roles];
+        $data = [
+            "roles" => $roles,
+            "title" => "Rol de Usuario"
+        ];
         $this->render('rol/viewRol.php', $data);
     }
     public function newRol(){
-        $this->render('rol/newRol.php');
+        $this->render('rol/newRol.php',["title" => "Nuevo Rol"]);
     }
 
     public function createRol(){
@@ -45,6 +55,7 @@ class RolController extends BaseController
         $rolObj = new RolModel();
         $rolInfo = $rolObj->getRol($id);
         $data = [
+            "title" => "Rol #".$id,
             "rol" => $rolInfo,
         ];
         $this->render('rol/viewOneRol.php', $data);
@@ -54,7 +65,8 @@ class RolController extends BaseController
         $rolObj = new RolModel();
         $rolInfo = $rolObj->getRol($id);
         $data = [
-            "rol" => $rolInfo
+            "rol" => $rolInfo,
+            "title" => "Editar Rol"
         ];
         $this->render('rol/editRol.php', $data);
     }

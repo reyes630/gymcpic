@@ -13,11 +13,20 @@ require_once MAIN_APP_ROUTE . '../models/UsuarioModel.php';
 
 class UsuarioController extends BaseController
 {
+    public function __construct()
+    {
+        #Se define la plantilla para este controlador 
+        $this->layout = "admin_layout";
+        
+        parent::__construct();
+    }
     public function view()
     {
         $usuarioObj = new UsuarioModel();
         $usuarios = $usuarioObj->getAll();
-        $data = ["usuarios" => $usuarios];
+        $data = ["usuarios" => $usuarios,
+                 "title" => "Usuarios"        
+        ];
         $this->render('usuario/viewUsuario.php', $data);
     }
 
@@ -37,7 +46,9 @@ class UsuarioController extends BaseController
             "roles" => $roles,
             "grupos" => $grupos,
             "centros" => $centros,
-            "tiposUsuario" => $tiposUsuario
+            "tiposUsuario" => $tiposUsuario,
+            "title" => "Nuevo Usuario"
+
         ];
         $this->render('usuario/newUsuario.php', $data);
     }
@@ -62,6 +73,7 @@ class UsuarioController extends BaseController
             $estatura = $_POST['txtEstatura'] ?? null;
             $telefonoEmergencia = $_POST['txtTelefonoEmergencia'] ?? null;
             $password = $_POST['txtPassword'] ?? null;
+            $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
             $observaciones = $_POST['txtObservaciones'] ?? null;
             $fkIdRol = $_POST['fkIdRol'] ?? null;
             $fkIdGrupo = $_POST['fkIdGrupo'] ?? null;
@@ -70,7 +82,7 @@ class UsuarioController extends BaseController
             
             $usuarioObj = new UsuarioModel();
             $usuarioObj->saveUsuario($nombre, $tipoDocumento, $documento, $fechaNacimiento, $email, $genero, $estado, 
-                $telefono, $eps, $tipoSangre, $peso, $estatura, $telefonoEmergencia, $password, $observaciones, 
+                $telefono, $eps, $tipoSangre, $peso, $estatura, $telefonoEmergencia, $passwordHashed, $observaciones, 
                 $fkIdRol, $fkIdGrupo, $fkIdCentroFormacion, $fkIdTipoUserGym);
             $this->redirectTo("usuario/view");
         }
@@ -96,7 +108,8 @@ class UsuarioController extends BaseController
             "roles" => $roles,
             "grupos" => $grupos,
             "centros" => $centros,
-            "tiposUsuario" => $tiposUsuario
+            "tiposUsuario" => $tiposUsuario,
+            "title" => "Editar Usuario"
         ];
         $this->render('usuario/editUsuario.php', $data);
     }
@@ -161,4 +174,6 @@ class UsuarioController extends BaseController
         $data = ["usuario" => $usuarioInfo];
         $this->render('usuario/viewOneUsuario.php', $data);
     }
+
+   
 }

@@ -13,11 +13,21 @@ require_once MAIN_APP_ROUTE . '../models/ActividadModel.php';
 
 class RegistroIngresoController extends BaseController
 {
+    public function __construct()
+    {
+        #Se define la plantilla para este controlador 
+        $this->layout = "admin_layout";
+        
+        parent::__construct();
+    }
     public function view()
     {
         $registroIngresoObj = new RegistroIngresoModel();
         $registrosIngreso = $registroIngresoObj->getAll();
-        $data = ["registrosIngreso" => $registrosIngreso];
+        $data = [
+            "registrosIngreso" => $registrosIngreso,
+            "titlte" => "Registro Ingreso"
+        ];
         $this->render('registroIngreso/viewRegistroIngreso.php', $data);
     }
 
@@ -32,6 +42,7 @@ class RegistroIngresoController extends BaseController
         $data = [
             "usuarios" => $usuarios,
             "actividades" => $actividades,
+            "title" => "Nuevo Registro"
         ];
         $this->render('registroIngreso/newRegistroIngreso.php', $data);
     }
@@ -74,6 +85,7 @@ class RegistroIngresoController extends BaseController
             "registroIngreso" => $registroIngreso,
             "usuarios" => $usuarios,
             "actividades" => $actividades,
+            "title" => "Editar Registro"
         ];
         $this->render('registroIngreso/editRegistroIngreso.php', $data);
     }

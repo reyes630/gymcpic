@@ -9,6 +9,13 @@ require_once MAIN_APP_ROUTE . '../models/ActividadModel.php';
 
 class ActividadController extends BaseController
 {
+    public function __construct()
+    {
+        #Se define la plantilla para este controlador 
+        $this->layout = "admin_layout";
+        
+        parent::__construct();
+    }
     public function index()
     {
         echo '<br>CONTROLLER> ActividadController';
@@ -20,12 +27,16 @@ class ActividadController extends BaseController
         // Llamamos al modelo de Actividad
         $actividadObj = new ActividadModel();
         $actividades = $actividadObj->getAll();
+        $data = [
+            "actividades" => $actividades,
+            "title" => "Actividades"
+        ];
         // Llamamos a la vista
-        $this->render('actividad/viewActividad.php', ["actividades" => $actividades]);
+        $this->render('actividad/viewActividad.php', $data);
     }
     public function newActividad()
     {
-        $this->render('actividad/newActividad.php');
+        $this->render('actividad/newActividad.php',["title" => "Nueva Actividad"]);
     }
 
     public function createActividad()
@@ -47,6 +58,7 @@ class ActividadController extends BaseController
     $actividadInfo = $actividadObj->getActividad($id);
     $data = [
         "actividad" => $actividadInfo,
+        "title" => "Actividad #".$id,
     ];
     $this->render('actividad/viewOneActividad.php', $data);
 }
@@ -56,7 +68,8 @@ class ActividadController extends BaseController
         $actividadObj = new ActividadModel();
         $actividadInfo = $actividadObj->getActividad($id);
         $data = [
-            "actividad" => $actividadInfo
+            "actividad" => $actividadInfo,
+            "title" => "Editar Actividad"
         ];
         $this->render('actividad/editActividad.php', $data);
     }

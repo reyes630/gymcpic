@@ -1,5 +1,8 @@
 
         <div class="data-container">
+            
+            
+            <a href="/registroIngreso/view"><img src="images/back.png">volver</a>
             <a href="/centroFormacion/new"><button class="add-button">+</button></a>
             <?php
             if (empty($centroFormacion)) {

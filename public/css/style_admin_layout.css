@@ -108,6 +108,12 @@
     height: var(--icon-size);
     width: var(--icon-size);
 }
+.navegate-group .back {
+    border: 2px solid red;
+    width: 200px;
+    height: 100px;
+    z-index: 999;
+}
 
 .sidebar.collapsed .menu a span {
     display: none;

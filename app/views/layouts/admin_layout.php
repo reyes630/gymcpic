@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $titulo ?></title>
+    <title><?php echo $title ?></title>
     <link rel="stylesheet" href="/css/style_admin_layout.css">
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,14 +20,25 @@
                 </div>
                 <nav class="menu">
                     <ul>
-                        <li><a href=""><i class="fas fa-building"></i><span>Centros</span></a></li>
-                        <li><a href=""><i class="fas fa-dumbbell"></i><span>Programas</span></a></li>
-                        <li><a href=""><i class="fas fa-user-tag"></i><span>Roles</span></a></li>
-                        <li><a href=""><i class="fas fa-running"></i><span>Actividades</span></a></li>
-                        <li><a href=""><i class="fas fa-sign-in-alt"></i><span>Registro Ingreso</span></a></li>
-                        <li><a href=""><i class="fas fa-tasks"></i><span>Control Programa</span></a></li>
-                        <li><a href=""><i class="fas fa-users-cog"></i><span>Tipo Usuario</span></a></li>
-                        <li><a href=""><i class="fas fa-users"></i><span>Usuarios</span></a></li>
+                        <?php
+                            if (isset($_SESSION['rol']) && $_SESSION['rol']==1): 
+                        ?>
+                        <li><a href="/centroFormacion/view"><i class="fas fa-building"></i><span>Centros</span></a></li>
+                        <li><a href="/programaFormacion/view"><i class="fas fa-dumbbell"></i><span>Programas</span></a></li>
+                        <?php endif?>
+                        
+                        <li><a href="/rol/view"><i class="fas fa-user-tag"></i><span>Roles</span></a></li>
+                        <li><a href="/actividad/view"><i class="fas fa-running"></i><span>Actividades</span></a></li>
+                        <li><a href="/registroIngreso/view"><i class="fas fa-sign-in-alt"></i><span>Registro Ingreso</span></a></li>
+                        <li><a href="/controlProgreso/view"><i class="fas fa-tasks"></i><span>Control Progreso</span></a></li>
+                        <li><a href="/tipoUsuarioGym/view"><i class="fas fa-users-cog"></i><span>Tipo Usuario</span></a></li>
+                        <li><a href="/usuario/view"><i class="fas fa-users"></i><span>Usuarios</span></a></li>
+
+                        <?php 
+                            if (isset($_SESSION['nombre'])) {?>
+                                <li><a href="/login/init"><i class="fas fa-users"></i>
+                                <span>Cerrar Sesión <?php echo $_SESSION['nombre'] ?? ""; ?></span></a></li>
+                        <?php } ?>
                     </ul>
                 </nav>
             </div>
@@ -35,7 +46,7 @@
         <main class="main-content">
             <header class="header">
                 <div class="header-container">
-                    <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars">...</i></button>
+                    <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></button>
                     <h1><?php echo $title; ?></h1>
                     <div class="search-container">
                         <i class="fas fa-search"></i>

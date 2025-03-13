@@ -9,16 +9,26 @@ require_once MAIN_APP_ROUTE . '../models/TipoUsuarioGymModel.php';
 
 class TipoUsuarioGymController extends BaseController
 {
+    public function __construct()
+    {
+        #Se define la plantilla para este controlador 
+        $this->layout = "admin_layout";
+        
+        parent::__construct();
+    }
     public function view(){
         $tipoUsuarioObj = new TipoUsuarioGymModel();
         $tiposUsuario = $tipoUsuarioObj->getAll();
-        $data = ["tiposUsuario" => $tiposUsuario];
+        $data = [
+            "tiposUsuario" => $tiposUsuario,
+            "title" => "Tipo Usuario"
+        ];
         $this->render('tipoUsuarioGym/viewTipoUsuarioGym.php', $data);
     }
 
     public function new()
     {
-        $this->render('tipoUsuarioGym/newTipoUsuarioGym.php');
+        $this->render('tipoUsuarioGym/newTipoUsuarioGym.php', ["title" => "Nuevo Tipo"]);
     }
 
     public function create()
@@ -43,7 +53,9 @@ class TipoUsuarioGymController extends BaseController
     {
         $tipoUsuarioObj = new TipoUsuarioGymModel();
         $tipoUsuario = $tipoUsuarioObj->getTipoUsuario($id);
-        $data = ["tipoUsuario" => $tipoUsuario];
+        $data = ["tipoUsuario" => $tipoUsuario,
+                 "title" => "Editar Tipo"
+    ];
         $this->render('tipoUsuarioGym/editTipoUsuarioGym.php', $data);
     }
 

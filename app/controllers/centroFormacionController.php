@@ -8,16 +8,32 @@ require_once 'baseController.php';
 require_once MAIN_APP_ROUTE . '../models/CentroFormacionModel.php';
 
 class CentroFormacionController extends BaseController{
+
+    public function __construct()
+    {
+        #Se define la plantilla para este controlador 
+        $this->layout = "admin_layout";
+        
+        parent::__construct();
+    }
     public function view(){
         // Llamamos al modelo de CentroFormacion
         $centroFormacionObj = new CentroFormacionModel();
         $centroFormacion = $centroFormacionObj->getAll();
         // Llamamos a la vista
-        $this->render('centroFormacion/viewCentroFormacion.php', ["centroFormacion" => $centroFormacion]);
+        $data = [
+            "title" => "Centro Formación",
+            "centroFormacion" => $centroFormacion
+        ];
+        
+        $this->render('centroFormacion/viewCentroFormacion.php', $data);
     }
     public function newCentroFormacion()
     {
-        $this->render('centroFormacion/newCentroFormacion.php');
+        $data = [
+            "title"=>"Nuevo Centro"
+        ];
+        $this->render('centroFormacion/newCentroFormacion.php', $data);
     }
 
     public function createCentroFormacion()
@@ -37,6 +53,7 @@ class CentroFormacionController extends BaseController{
     $centroInfo = $centroFormacionObj->getCentroFormacion($id);
     $data = [
         "centro" => $centroInfo,
+        "title" => "Centro Formación #".$id,
     ];
     $this->render('centroFormacion/viewOneCentroFormacion.php', $data);
 }
@@ -46,7 +63,8 @@ class CentroFormacionController extends BaseController{
         $centroFormacionObj = new CentroFormacionModel();
         $centroInfo = $centroFormacionObj->getCentroFormacion($id);
         $data = [
-            "centro" => $centroInfo
+            "centro" => $centroInfo,
+            "title" => "Editar Centro"
         ];
         $this->render('centroFormacion/editCentroFormacion.php', $data);
     }

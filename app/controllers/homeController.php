@@ -5,6 +5,13 @@ require_once 'baseController.php';
 
 class HomeController extends BaseController
 {
+    public function __construct()
+    {
+        #Se define la plantilla para este controlador 
+        $this->layout = "admin_layout";
+        
+        parent::__construct();
+    }
     public function index()
     {
         echo '<br>CONTROLLER> HomeController';

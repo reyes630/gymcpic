@@ -10,6 +10,7 @@ require_once MAIN_APP_ROUTE . '../models/UsuarioModel.php';
 
 final class loginController extends BaseController
 {
+    
     public function __construct()
     {
         $this->layout = "login_layout";
@@ -18,8 +19,8 @@ final class loginController extends BaseController
     public function initLogin(){
         if(isset($_POST['txtUser']) && isset($_POST['txtPassword'])){
 
-            $user = trim($_POST['txtUser']) || "";
-            $password = trim($_POST['txtUser']) || "";
+            $user = trim($_POST['txtUser']) ??  null;
+            $password = trim($_POST['txtPassword']) ?? null;
             if($user  != null && $password != null) {
                 //Se valida la existencia del usuario y contraseña en la BD
                 $loginObj = new UsuarioModel();

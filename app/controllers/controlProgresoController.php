@@ -11,11 +11,21 @@ require_once MAIN_APP_ROUTE . '../models/UsuarioModel.php';
 
 class ControlProgresoController extends BaseController
 {
+    public function __construct()
+    {
+        #Se define la plantilla para este controlador 
+        $this->layout = "admin_layout";
+        
+        parent::__construct();
+    }
     public function view()
     {
         $controlProgresoObj = new ControlProgresoModel();
         $controlesProgreso = $controlProgresoObj->getAll();
-        $data = ["controlesProgreso" => $controlesProgreso];
+        $data = [
+            "controlesProgreso" => $controlesProgreso,
+            "title" => "Control Progreso"
+        ];
         $this->render('controlProgreso/viewControlProgreso.php', $data);
     }
 
@@ -23,7 +33,11 @@ class ControlProgresoController extends BaseController
     {
         $usuarioObj = new UsuarioModel();
         $usuarios = $usuarioObj->getAll();
-        $this->render('controlProgreso/newControlProgreso.php', ["usuarios" => $usuarios]);
+        $data =[
+            "usuarios" => $usuarios,
+            "title" => "Nuevo Progreso"
+        ];
+        $this->render('controlProgreso/newControlProgreso.php', $data);
     }
 
     public function create()
@@ -69,7 +83,9 @@ class ControlProgresoController extends BaseController
         $usuarioObj = new UsuarioModel();
         $usuarios = $usuarioObj->getAll();
         $data = ["controlProgreso" => $controlProgreso, 
-                 "usuarios" => $usuarios];
+                 "usuarios" => $usuarios,
+                 "title" => "Editar Progreso"
+                ];
         $this->render('controlProgreso/editControlProgreso.php', $data);
     }
 
